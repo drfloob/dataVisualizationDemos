@@ -1,14 +1,15 @@
-$.getJSON('../data/v1.json', function(data) {
-    data = _.without(data, null);
-    var stackData = _.unzip(_.map(data, function(o, i) {
-	if (!o) return;
-	var m = {gender: "male", x: i+2001, y: Number(o["Full-Time Male enrollment, Undergraduate, 1st time Freshman"])};
-	var f = {gender: "female", x: i+2001, y: Number(o["Full-Time Female enrollment, Undergraduate, 1st time Freshman"])};
-	m.total = f.total = m.y+f.y;
-	return [m, f];
-    }));
+d3.csv("../data/v2.csv", function(dcsv) {
+    var m= [], f= [];
+    _.each(dcsv, function(d) {
+	// console.log(d);
+	var md = {gender: 'male', x: Number(d['Year To']), y: Number(d["Full-Time Male enrollment, Undergraduate, 1st time Freshman"])},
+	    fd = {gender: 'female', x: Number(d['Year To']), y: Number(d["Full-Time Female enrollment, Undergraduate, 1st time Freshman"])};
+	md.total = fd.total = md.y+fd.y;
+	m.push(md);
+	f.push(fd);
+    });
 
-    doD3(stackData);
+    doD3([m,f]);
 });
 
 function doD3(data) {
