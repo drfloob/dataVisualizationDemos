@@ -15,24 +15,23 @@ function doD3(data) {
 
     var n = 2, // number of layers
 	m = 15, // number of samples per layer
-	layers = d3.layout.stack()(data),
-	paddingLeft = 80,
-	paddingBottom = 50;
+	layers = d3.layout.stack()(data);
 
     var yGroupMax = d3.max(layers, function(layer) { return d3.max(layer, function(d) { return d.y; }); }),
 	yStackMax = d3.max(layers, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); });
 
     var margin = {top: 30, right: 10, bottom: 20, left: 10},
+	padding= {top: 60, right: 0, bottom: 50, left: 80},
 	width = 960 - margin.left - margin.right,
 	height = 420 - margin.top - margin.bottom;
 
     var x = d3.scale.ordinal()
 	.domain(d3.range(2001, 2016))
-	.rangeRoundBands([paddingLeft, width], .02);
+	.rangeRoundBands([padding.left, width-padding.right], .02);
 
     var y = d3.scale.linear()
 	.domain([0, yStackMax])
-	.range([height-paddingBottom, 0]);
+	.range([height-padding.bottom, padding.top]);
 
     var color = d3.scale.linear()
 	.domain([0, n - 1])
@@ -79,12 +78,12 @@ function doD3(data) {
 
     var xAxisG = svg.append("g")
 	.attr("class", "x axis")
-	.attr("transform", "translate(0," + (height-paddingBottom) + ")")
+	.attr("transform", "translate(0," + (height-padding.bottom) + ")")
 	.call(xAxis);
 
     var yAxisG = svg.append("g")
 	.attr("class", "y axis")
-	.attr("transform", "translate("+paddingLeft+", 0)")
+	.attr("transform", "translate("+padding.left+", 0)")
 	.call(yAxis);
 
     // X axis label
@@ -93,7 +92,7 @@ function doD3(data) {
 	.attr("text-anchor", "middle")
 	.attr("x", width/2)
 	.attr("y", height)
-	.text("Year of enrollment");
+	.text("School Year");
     
     // Y axis label
     svg.append("text")
@@ -112,7 +111,7 @@ function doD3(data) {
 	.attr("width", 160)
 	.attr("height", 35);
 
-    // border
+    // legend border
     legend.append("rect")
 	.attr("height", 35)
 	.attr("width", 160)
@@ -121,7 +120,7 @@ function doD3(data) {
 	.style("fill", "none");
 
     
-    // males
+    // male
     legend.append("rect")
 	.attr('x', 10)
 	.attr('y', 10)
@@ -135,7 +134,7 @@ function doD3(data) {
 	.attr("text-anchor", "left")
 	.text("Male");
 
-    // females
+    // female
     legend.append("rect")
 	.attr("x", 80)
 	.attr("y", 10)
@@ -148,6 +147,20 @@ function doD3(data) {
 	.attr("text-anchor", "left")
 	.text("Female");
 
+
+    // chart title
+    svg.append('text')
+	.attr('x', width/2)
+	.attr('y', 15)
+	.attr('text-anchor', 'middle')
+	.attr('class', 'h1')
+	.text("Full-time Undergraduate enrollment for 1st-time students, by year and gender")
+    svg.append('text')
+	.attr('x', width/2)
+	.attr('y', 38)
+	.attr('text-anchor', 'middle')
+	.attr('class', 'h2')
+	.text("from the CSULB Common Data Sets, 2000-2015");
     
     d3.selectAll("input").on("change", change);
 
@@ -155,9 +168,8 @@ function doD3(data) {
     rect.append("svg:title")
 	.text(function(d) {
 	    if (!d) return;
-	    console.log(d);
 	    var pronoun = d.gender == "male" ? "men" : "women";
-	    return d.y + " " + pronoun + " were enrolled in " + (d.x-1) + "-" + d.x + ";\n" + d.total + " students in total.";
+	    return d.y + " " + pronoun + " were enrolled in " + (d.x-1) + "-" + d.x + ";\n" + d.total + " students enrolled in total.";
 	});
     
     var timeout = setTimeout(function() {
@@ -186,7 +198,7 @@ function doD3(data) {
 	    .attr("width", x.rangeBand() / n)
 	    .transition()
 	    .attr("y", function(d) { return y(d.y); })
-	    .attr("height", function(d) { return height - y(d.y) - paddingBottom; });
+	    .attr("height", function(d) { return height - y(d.y) - padding.bottom; });
     }
 
     function transitionStacked() {
