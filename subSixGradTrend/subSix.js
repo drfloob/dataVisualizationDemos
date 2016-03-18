@@ -1,7 +1,7 @@
 // partially adapted from http://bl.ocks.org/benvandyke/8459843
 
 var margin = {left: 10, top: 10, right: 10, bottom : 10},
-    padding = {left: 70, bottom: 50, right: 30, top: 0},
+    padding = {left: 70, bottom: 50, right: 30, top: 30},
     width= 960,
     height= 420;
 
@@ -17,6 +17,20 @@ svg.append("g")
 
 svg.append("g")
     .attr("class", "x axis");
+
+svg.append('text')
+    .attr('class', 'h1')
+    .attr('x', width/2)
+    .attr('y', 20)
+    .attr('text-anchor', 'middle')
+    .text("Percent of 1st year Undergraduates who graduate within 6 years");
+
+svg.append('text')
+    .attr('class', 'h2')
+    .attr('x', width/2)
+    .attr('y', 45)
+    .attr('text-anchor', 'middle')
+    .text("from the CSULB Common Data Sets cohort reports, 2000-2015");
 
 var xScale = d3.scale.ordinal()
     .domain(d3.range(2000, 2011))
@@ -38,11 +52,9 @@ var yAxis = d3.svg.axis()
 
 d3.csv("../data/v2.csv", function(data) {
     data = _.last(data, 9);
-    console.log(data);
     var xyTensor = _.unzip(data.map(function(d) { return [d['Year To'], d['Sub-six-year graduation rate']]; })),
-	x = xyTensor[0],
-	y = xyTensor[1];
-    console.log(x,y);
+	x = _.map(xyTensor[0], function(d) { return Number(d); }),
+	y = _.map(xyTensor[1], function(d) { return Number(d); });
     
     var line = d3.svg.line()
 	.x(function(d) { return xScale(Number(d['Year To'])); })
@@ -91,12 +103,11 @@ d3.csv("../data/v2.csv", function(data) {
 	.attr("class", "text-label")
 	.attr("text-anchor", "middle")
 	.attr("transform", "rotate(-90)")
-	.text("% of undergraduate students who graduate within 6 years")
+	.text("% graduated within 6 years")
 
     
     // apply the reults of the least squares regression
     var lsCoeff = leastSquares(x, y);
-    console.log(lsCoeff);
     var x1 = x[0];
     var y1 = lsCoeff[0]*x1 + lsCoeff[1];
     var x2 = x[x.length - 1];
@@ -115,7 +126,7 @@ d3.csv("../data/v2.csv", function(data) {
 	.attr("y2", function(d) { return yScale(d[3]); })
 
 
-    var decimalFormat = d3.format("0.2f");
+    var decimalFormat = d3.format("0.4f");
     
     // equation & r^2
     var eq = svg.append('g')
@@ -140,8 +151,6 @@ function leastSquares(x, y) {
     
     var xBar = _.reduce(x, sum) / x.length;
     var yBar = _.reduce(y, sum) / y.length;
-
-    console.log(xBar, yBar);
     
     var ssXX = x.map(function(d) { return Math.pow(d - xBar, 2); })
 	.reduce(sum);
@@ -151,10 +160,11 @@ function leastSquares(x, y) {
     
     var ssXY = x.map(function(d, i) { return (d - xBar) * (y[i] - yBar); })
 	.reduce(sum);
+
+    var rxy = ssXY/Math.sqrt(ssXX*ssYY),
+	r2 = Math.pow(rxy,2),
+	slope = rxy*Math.sqrt(ssYY/ssXX),
+	intercept = yBar - slope*xBar;
     
-    var slope = ssXY / ssXX;
-    var intercept = yBar - (xBar * slope);
-    var rSquare = Math.pow(ssXY, 2) / (ssXX * ssYY);
-    
-    return [slope, intercept, rSquare];
+    return [slope, intercept, r2];
 }
