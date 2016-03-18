@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../css.css" />
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script defer src="../js.js"></script>
+    <style>
+      form {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <form>
+      <label><input type="radio" name="mode" value="grouped"> Grouped</label>
+      <label><input type="radio" name="mode" value="stacked" checked> Stacked</label>
+    </form>
+
+    <script defer src="stackedToGroup.js"></script>
+  </body>
+</html>
