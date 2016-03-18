@@ -57,8 +57,8 @@ d3.csv("../data/v2.csv", function(data) {
 	y = _.map(xyTensor[1], function(d) { return Number(d); });
     
     var line = d3.svg.line()
-	.x(function(d) { return xScale(Number(d['Year To'])); })
-	.y(function(d) { return yScale(Number(d['Sub-six-year graduation rate'])); });
+	.x(function(d) { return xScale(d['Year To']); })
+	.y(function(d) { return yScale(d['Sub-six-year graduation rate']); });
 
     svg.append("path")
 	.datum(data)
@@ -147,7 +147,7 @@ d3.csv("../data/v2.csv", function(data) {
 
 // returns slope, intercept and r-square of the line
 function leastSquares(x, y) {
-    var sum = function(prev, cur) { return Number(prev) + Number(cur); };
+    var sum = function(prev, cur) { return prev + cur; };
     
     var xBar = _.reduce(x, sum) / x.length;
     var yBar = _.reduce(y, sum) / y.length;
