@@ -1,0 +1,16 @@
+Year From,Year To,"Full-Time Male enrollment, Undergraduate, 1st time Freshman","Full-Time Female enrollment, Undergraduate, 1st time Freshman","Full-Time Male enrollment, Undergraduate, other 1st year","Full-Time Female enrollment, Undergraduate, other 1st year","Full-Time Male enrollment, Undergraduate, all other degree seeking","Full-Time Female enrollment, Undergraduate, all other degree seeking","Full-Time Male enrollment, Graduate, 1st time","Full-Time Female enrollment, Graduate, 1st time","Full-Time Male enrollment, Graduate, all other degree seeking","Full-Time Female enrollment, Graduate, all other degree seeking","Full-Time Male enrollment, Graduate, all other enrolled","Full-Time Female enrollment, Graduate, all other enrolled",Bachelor's degrees awarded,Master's degrees awarded,Adjusted cohort total,Graduated in <= 4 years,Graduated in 4 < x <= 5 years,Graduated in 5 < x <= 6 years,Sub-six-year graduation rate
+2014,2015,1730,2507,673,859,9372,12033,364,492,534,838,266,453,7142,1696,,,,,
+2013,2014,1685,2434,815,1048,8518,11256,421,564,398,685,247,389,6831,1696,,,,,
+2012,2013,1695,2451,687,864,8598,11585,303,479,421,767,280,422,6171,1740,,,,,
+2011,2012,1576,2333,909,1109,7736,10959,284,478,450,799,283,455,6746,1816,,,,,
+2010,2011,1603,2310,585,787,6863,10385,352,521,435,730,311,526,6841,1816,,,,,
+2009,2010,1340,2133,737,1089,7413,10983,361,517,451,839,317,593,6685,1686,,,,,
+2008,2009,1680,2857,741,1124,7667,11382,285,548,451,768,286,614,6567,1721,4536,657,1483,816,0.65
+2007,2008,1514,2618,848,1485,7228,10612,319,549,365,709,200,430,6110,1531,4135,560,1184,750,0.6
+2006,2007,1575,2756,886,1487,6614,10030,232,551,388,691,178,509,5912,1581,4334,536,1220,711,0.57
+2005,2006,1575,2667,677,1303,6463,9840,226,362,354,626,246,612,5790,1433,4152,498,0,1762,0.54
+2004,2005,1079,2223,696,1338,6400,9473,240,377,342,585,211,671,5194,1128,3302,406,0,1378,0.54
+2003,2004,1104,2236,723,1207,6709,9699,202,312,338,528,270,670,5055,892,3340,432,0,1385,0.54
+2002,2003,1041,1868,1046,1767,6510,9284,212,327,412,644,193,573,4859,1137,2912,365,0,1247,0.55
+2001,2002,1575,2753,760,1288,6087,8688,171,311,281,521,220,536,4352,1210,4328,420,0,1605,0.47
+2000,2001,1175,2038,825,1442,5707,8069,157,279,333,548,286,706,4158,1099,3214,375,0,1162,0.48
